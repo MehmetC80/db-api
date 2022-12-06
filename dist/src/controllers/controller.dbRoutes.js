@@ -9,8 +9,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAllRoutes = void 0;
-const db_1 = require("../data/db");
+exports.getDistance = exports.search = exports.getAllRoutes = void 0;
+const db_1 = require("../utils/db");
+const calculateDistance_1 = require("../utils/calculateDistance");
+const deg2rad_1 = require("../utils/deg2rad");
 // get all posts
 const getAllRoutes = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -21,4 +23,64 @@ const getAllRoutes = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     }
 });
 exports.getAllRoutes = getAllRoutes;
+const search = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { searchTerm } = req.params;
+        const obj = db_1.data.filter(item => item.NAME.toLowerCase().includes(searchTerm.toLocaleLowerCase()));
+        // console.log(obj)
+        // const name = obj.map(item => item.NAME)[0]
+        return res.status(200).json(obj);
+    }
+    catch (err) {
+        res.status(400).send(err);
+    }
+});
+exports.search = search;
+const getDistance = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { from, to } = req.params;
+        //Vaidation
+        if (!from || !to) {
+            return res.status(401).send("origin and destination have to");
+        }
+        const obj1 = db_1.data.filter(item => {
+            return item.DS100 === from;
+        });
+        const obj2 = db_1.data.filter(item => {
+            return item.DS100 === to;
+        });
+        // get name from originLocation
+        const originLocationName = obj1.map(item => item.NAME)[0];
+        // get name from destinationLocation
+        const destinationLocationName = obj2.map(item => item.NAME)[0];
+        //get lat from originLocation in string format  
+        const latOriginInString = obj1.map(item => item.Breite)[0];
+        // get lat origin in number fromat and transform in radian 
+        const latOriginInRad = (0, deg2rad_1.Deg2Rad)(parseFloat(latOriginInString.replace(/,/, ".")));
+        //get long from originLocation in string format  
+        const longOriginInString = obj1.map(item => item.Laenge)[0];
+        // get lat origin in number fromat and transform in radian 
+        const longOriginInRad = (0, deg2rad_1.Deg2Rad)(parseFloat(longOriginInString.replace(/,/, ".")));
+        //get lat from destinationLocation in string format  
+        const latDestinationInString = obj2.map(p => p.Breite)[0];
+        //get lat from destination location in number fromat and transform it in radian 
+        const latDestinationInRad = (0, deg2rad_1.Deg2Rad)(parseFloat(latDestinationInString.replace(/,/, ".")));
+        //get long from originLocation in string format  
+        const longDestinationInString = obj2.map(item => item.Laenge)[0];
+        // get long from destination in number format and transform in radian 
+        const longDestinationInRad = (0, deg2rad_1.Deg2Rad)(parseFloat(longDestinationInString.replace(/,/, ".")));
+        // calculate the distance
+        const distance = (0, calculateDistance_1.calculateDistance)(latOriginInRad, latDestinationInRad, longOriginInRad, longDestinationInRad);
+        return res.status(200).json({
+            from: originLocationName,
+            to: destinationLocationName,
+            distance: distance,
+            unit: "Km"
+        });
+    }
+    catch (err) {
+        res.status(500).send(err);
+    }
+});
+exports.getDistance = getDistance;
 //# sourceMappingURL=controller.dbRoutes.js.map

@@ -1,5 +1,5 @@
 import express from 'express';
-
+import cors from "cors"
 
 
 import dotenv from 'dotenv';
@@ -10,13 +10,14 @@ import getAll from './routes/db.routes';
 
 
 
+
 const app = express();
 const port = process.env.PORT;
 
 //middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use(cors());
 
 
 // const postRouter = require('./routes/post.routes');
@@ -32,6 +33,7 @@ app.get('/', (req, res) => {
 
 //post routes
 app.use('/api', getAll);
+
 
 
 app.listen(port, () => {
