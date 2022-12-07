@@ -4,8 +4,8 @@ export interface DBModel {
     IFOPT: string;
     NAME: string;
     Verkehr: string;
-    Laenge: string;
-    Breite: string;
+    Laenge: number;
+    Breite: number;
     Betreiber_Name: string;
     Betreiber_Nr: string;
     Status: string;

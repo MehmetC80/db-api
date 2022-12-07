@@ -1,5 +1,5 @@
-import { NextFunction, Request, Response } from 'express';
-import { data } from "../utils/db";
+import { Request, Response } from 'express';
+import { data } from "../utils/data";
 import { calculateDistance } from "../utils/calculateDistance"
 import { Deg2Rad } from '../utils/deg2rad';
 
@@ -71,32 +71,29 @@ export const getDistance = async (req: Request, res: Response) => {
         const destinationLocationName = obj2.map(item => item.NAME)[0];
 
 
-        //get lat from originLocation in string format  
-        const latOriginInString = obj1.map(item => item.Breite)[0];
+        //get lat from originLocation 
+        const latOrigin = obj1.map(item => item.Breite)[0];
 
-
-        // get lat origin in number fromat and transform in radian 
-        const latOriginInRad = Deg2Rad(parseFloat(latOriginInString.replace(/,/, ".")));
-
+        const latOriginInRad = Deg2Rad(latOrigin)
 
         //get long from originLocation in string format  
-        const longOriginInString = obj1.map(item => item.Laenge)[0]
+        const longOrigin = obj1.map(item => item.Laenge)[0]
 
         // get lat origin in number fromat and transform in radian 
-        const longOriginInRad = Deg2Rad(parseFloat(longOriginInString.replace(/,/, ".")));
+        const longOriginInRad = Deg2Rad(longOrigin);
 
 
-        //get lat from destinationLocation in string format  
-        const latDestinationInString = obj2.map(p => p.Breite)[0];
+        //get lat from destinationLocation 
+        const latDestination = obj2.map(p => p.Breite)[0];
 
         //get lat from destination location in number fromat and transform it in radian 
-        const latDestinationInRad = Deg2Rad(parseFloat(latDestinationInString.replace(/,/, ".")));
+        const latDestinationInRad = Deg2Rad(latDestination);
 
-        //get long from originLocation in string format  
-        const longDestinationInString = obj2.map(item => item.Laenge)[0];
+        //get long from originLocation 
+        const longDestination = obj2.map(item => item.Laenge)[0];
 
         // get long from destination in number format and transform in radian 
-        const longDestinationInRad = Deg2Rad(parseFloat(longDestinationInString.replace(/,/, ".")));
+        const longDestinationInRad = Deg2Rad(longDestination);
 
         // calculate the distance
         const distance = calculateDistance(latOriginInRad, latDestinationInRad, longOriginInRad, longDestinationInRad)
