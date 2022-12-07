@@ -1,7 +1,7 @@
 
 # API
 
-## Distance calculator train stations
+## Distance calculator for train stations
 
 There are around 360 train stations in Germany that are served by ICs and ICEs. Every train station has
 a unique two- to six-digit abbreviation, the so-called DS100 code. The list of all
