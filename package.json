@@ -1,15 +1,19 @@
 {
   "name": "db-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "API-calculator the distane for train stations ",
   "scripts": {
     "dev": "tsc -w & nodemon dist/src/index.js",
     "build": "tsc",
-    "start": "node dist/src/index.js",
-    "csv2json": "node dist/src/utils/csv2json.js"
+    "start": "node dist/src/index.js"
   },
   "author": "Mehmet Cetinkaya",
   "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2"
+  },
   "devDependencies": {
     "@types/cors": "^2.8.12",
     "@types/dotenv": "^8.2.0",
@@ -19,10 +23,5 @@
     "ts-node": "^10.9.1",
     "tslib": "^2.4.1",
     "typescript": "^4.9.3"
-  },
-  "dependencies": {
-    "cors": "^2.8.5",
-    "dotenv": "^16.0.3",
-    "express": "^4.18.2"
   }
 }

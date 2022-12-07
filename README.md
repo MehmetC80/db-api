@@ -25,6 +25,19 @@ The following JSON response is expected as an answer:
 } ```
 
 
+## Converting the CSV file into a JSON format
+
+1. To convert the CSV file you have to enter the following command:
+
+``` npx ts-node src/utils/csv2json.ts ```
+
+
+2. Make sure that the CSV file to be converted is in:
+
+``` src/utils/files ```
+
+3. create an interface for your Json file to be generated  
+
 
 
 
