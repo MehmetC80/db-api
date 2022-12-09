@@ -42,6 +42,9 @@ The following JSON response is expected as an answer:
 
 ## Frontend-Part
 
-[Here you come to the frontend part](https://github.com/MehmetC80/db-frontend)
+[Here is the link to the frontend part](https://github.com/MehmetC80/db-frontend)
 
 
+## Online 
+
+[Here is the link to online View](https://d-bahn.memozone.de/)
